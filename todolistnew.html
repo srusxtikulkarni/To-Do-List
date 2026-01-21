@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Todo List</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #1f1b2e, #2b2740);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        .todo-container {
+            width: 90%;
+            max-width: 420px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 5px;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+
+        .input-area {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #aaa;
+            padding: 8px;
+            color: white;
+            font-size: 14px;
+            outline: none;
+        }
+
+        input::placeholder {
+            color: #aaa;
+        }
+
+        .add-btn {
+            background: #2ecc71;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background: #3a3556;
+            padding: 12px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .btn-group button {
+            border: none;
+            padding: 6px 10px;
+            margin-left: 6px;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .done-btn {
+            background: #2ecc71;
+        }
+
+        .delete-btn {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .completed {
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="todo-container">
+    <h1>TO DO LIST</h1>
+    <div class="subtitle">Create a list of tasks :</div>
+
+    <div class="input-area">
+        <input type="text" id="task" placeholder="Add a new task">
+        <button class="add-btn" onclick="addTask()">ADD</button>
+    </div>
+
+    <ul id="todoList"></ul>
+</div>
+
+<script>
+    function addTask() {
+        var taskText = document.getElementById("task").value;
+
+        if (taskText === "") {
+            alert("Please enter a task");
+            return;
+        }
+
+        var li = document.createElement("li");
+
+        var span = document.createElement("span");
+        span.innerText = taskText;
+
+        var btnGroup = document.createElement("div");
+        btnGroup.className = "btn-group";
+
+        var doneBtn = document.createElement("button");
+        doneBtn.innerText = "DONE";
+        doneBtn.className = "done-btn";
+        doneBtn.onclick = function () {
+            span.classList.toggle("completed");
+        };
+
+        var delBtn = document.createElement("button");
+        delBtn.innerText = "DELETE";
+        delBtn.className = "delete-btn";
+        delBtn.onclick = function () {
+            li.remove();
+        };
+
+        btnGroup.appendChild(doneBtn);
+        btnGroup.appendChild(delBtn);
+
+        li.appendChild(span);
+        li.appendChild(btnGroup);
+
+        document.getElementById("todoList").appendChild(li);
+        document.getElementById("task").value = "";
+    }
+</script>
+
+</body>
+</html>
